@@ -1,0 +1,21 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pipeline-job
+spec:
+  template:
+    metadata:
+      labels:
+        app: data-pipeline
+    spec:
+      containers:
+        - name: data-pipeline-container
+          image: first-pipeline:v1.0
+          env:
+            - name: APP_ENV
+              value: Production
+            - name: DATA_LIMIT
+              value: "50"
+      restartPolicy: Never
+  backoffLimit: 2
